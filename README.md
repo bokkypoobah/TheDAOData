@@ -3,7 +3,7 @@ Data related to The DAO
 
 This repository contains some scripts to retrieve data from The DAO on the Ethereum blockchain.
 
-## Get The DAO CreatedToken Event
+### Get The DAO CreatedToken Event
 The script `getTheDAOCreatedTokenEvents` can be used to retrieve The DAO CreatedToken events. The complete data extracted by this script can be found in `CreatedTokenEvents.txt`. Here's some sample data:
 
     address                                    amount to                                         blockHash                                                          blockNumber event        logIndex transactionHash                                                    transactionIndex
@@ -13,7 +13,7 @@ The script `getTheDAOCreatedTokenEvents` can be used to retrieve The DAO Created
 
 <br />
 
-## Get The DAO Transfer Event
+### Get The DAO Transfer Event
 The script `getTheDAOTransferEvents` can be used to retrieve The DAO Transfer events. The incomplete data extracted by this script can be found in `TransferEvents.txt`. This is because The DAO transfers are still occurring. Here's some sample data:
 
     address                                     amount _from                                      _to                                        blockHash                                                          blockNumber event    logIndex transactionHash                                                    transactionIndex
