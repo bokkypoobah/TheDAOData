@@ -3,6 +3,8 @@ Data related to The DAO
 
 This repository contains some scripts to retrieve data from The DAO on the Ethereum blockchain.
 
+<br />
+
 ### Get The DAO CreatedToken Event
 The script `getTheDAOCreatedTokenEvents` can be used to retrieve The DAO CreatedToken events. The complete data extracted by this script can be found in `CreatedTokenEvents.txt`. Here's some sample data:
 
