@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# ------------------------------------------------------------------------------
+# Retrieve The DAO Transfer events. These events are from block 1599207 to 
+# 1773290 and are continuing as transfers are still occurring.
+#
+# Usage:
+#   1. Download this script to getTheDAOTransferEvents .
+#   2. `chmod 700 getTheDAOTransferEvents`
+#   3. Run `geth console` in a window.
+#   4. Then run this script `./getTheDAOTransferEvents` in a separate window.
+#
+# Enjoy. (c) BokkyPooBah 2016. The MIT licence.
+# ------------------------------------------------------------------------------
+
+geth attach << EOF | egrep -e "\t0x"
+var theDAOABIFragment = [{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CreatedToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"}];
+var theDAOAddress = "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
+var theDAOStartingBlock = 1599205;
+var theDAO = web3.eth.contract(theDAOABIFragment).at(theDAOAddress);
+var theDAOTransferEvent = theDAO.Transfer({}, {fromBlock: theDAOStartingBlock, toBlock: 'latest'});
+console.log("address\tamount\t_from\t_to\tblockHash\tblockNumber\tevent\tlogIndex\ttransactionHash\ttransactionIndex");
+theDAOTransferEvent.watch(function(error, result){
+  console.log(result.address + "\t" + result.args._amount / 1e16 + "\t" + result.args._from + "\t" + 
+    result.args._to + "\t" + result.blockHash + "\t" + result.blockNumber + "\t" + result.event + "\t" + 
+    result.logIndex + "\t" + result.transactionHash + "\t" + result.transactionIndex);
+});
+
+EOF
+
+
