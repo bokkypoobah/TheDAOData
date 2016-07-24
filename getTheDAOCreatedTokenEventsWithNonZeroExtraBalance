@@ -14,7 +14,7 @@
 # Enjoy. (c) BokkyPooBah 2016. The MIT licence.
 # ------------------------------------------------------------------------------
 
-geth attach << EOF | egrep "From|GMT"
+geth attach << EOF | egrep "Header|Data"
 var theDAOABIFragment = [{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CreatedToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"}];
 var theDAOAddress = "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
 
