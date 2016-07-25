@@ -1,60 +1,77 @@
-#!/bin/sh
-
-# ------------------------------------------------------------------------------
-# Retrieve The DAO CreatedToken events with non-zero extraBalance amounts. 
-# These events are from block 1520861 to 1599205 when the creation phase ended.
-#
-# Usage:
-#   1. Download this script to getTheDAOCreatedTokenEventsWithNonZeroExtraBalance .
-#   2. `chmod 700 getTheDAOCreatedTokenEventsWithNonZeroExtraBalance`
-#   3. Run `geth console` in a window.
-#   4. Then run this script `./getTheDAOCreatedTokenEventsWithNonZeroExtraBalance`
-#      in a separate window.
-#
-# Enjoy. (c) BokkyPooBah 2016. The MIT licence.
-# ------------------------------------------------------------------------------
-
-geth attach << EOF | egrep "Header|Data"
-var theDAOABIFragment = [{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CreatedToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"}];
-var theDAOAddress = "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
-
-// Full non-zero extraBalance contributions
-var theDAOStartingBlock = 1520861;
-var theDAOEndingBlock = 1599205;
-
-// Test
-// var theDAOStartingBlock = 1520861;
-// var theDAOEndingBlock = 1520861;
-
-var theDAO = web3.eth.contract(theDAOABIFragment).at(theDAOAddress);
-var theDAOCreatedTokenEvent = theDAO.CreatedToken({}, {fromBlock: theDAOStartingBlock, toBlock: theDAOEndingBlock});
-console.log("Header\tFrom\tBlockNumber\tTxHash\tTimestamp\tGMTDateTime\tAmount\tTheDAOAmount\textraBalanceAmount\tTheDAOTokens\tGasUsed\tGasPrice\tCost\tNonce");
-theDAOCreatedTokenEvent.watch(function(error, result){
-  var tx = eth.getTransaction(result.transactionHash);
-  var txReceipt = eth.getTransactionReceipt(result.transactionHash);
-  var gasUsed = txReceipt.gasUsed;
-  var gasPrice = tx.gasPrice;
-  var cost = gasUsed * gasPrice;
-  var amount = tx.value;
-  var block = eth.getBlock(tx.blockNumber);
-  var d = new Date(block.timestamp * 1000);
-
-  var status = debug.traceTransaction(result.transactionHash);
-  var extraBalanceAmount = 0;
-  status.structLogs.forEach(function(e) {
-    if (e.op == "CALL") {
-      var stack = e.stack;
-      extraBalanceAmount = web3.toBigNumber("0x" + stack[stack.length-3]);
-    }
-  });
-  var theDAOAmount = amount - extraBalanceAmount;
-  var theDAOTokens = theDAOAmount * 100;
-
-  console.log("Data\t" + tx.from + "\t" + tx.blockNumber + "\t" + tx.hash + "\t" + block.timestamp + "\t" + d.toGMTString() + "\t" +
-    web3.fromWei(amount, "ether") + "\t" + web3.fromWei(theDAOAmount, "ether") + "\t" + 
-    web3.fromWei(extraBalanceAmount, "ether") + "\t" + web3.fromWei(theDAOTokens, "ether") + "\t" + gasUsed + "\t" + gasPrice + "\t" +
-    web3.fromWei(cost, "ether") + "\t" + tx.nonce);
-});
-
-EOF
-
+    #!/bin/sh
+    
+    # ------------------------------------------------------------------------------
+    # Retrieve The DAO CreatedToken events with non-zero extraBalance amounts. 
+    # These events are from block 1520861 to 1599205 when the creation phase ended.
+    #
+    # Usage:
+    #   1. Download this script to getTheDAOCreatedTokenEventsWithNonZeroExtraBalance .
+    #   2. `chmod 700 getTheDAOCreatedTokenEventsWithNonZeroExtraBalance`
+    #   3. Run `geth console` in a window.
+    #   4. Then run this script `./getTheDAOCreatedTokenEventsWithNonZeroExtraBalance`
+    #      in a separate window.
+    #
+    # Enjoy. (c) BokkyPooBah 2016. The MIT licence.
+    # ------------------------------------------------------------------------------
+    
+    geth attach << EOF | egrep "Header|Data"
+    var theDAOABIFragment = [{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CreatedToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"}];
+    var theDAOAddress = "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
+    
+    // Full non-zero extraBalance contributions
+    var theDAOStartingBlock = 1520861;
+    var theDAOEndingBlock = 1599205;
+    
+    // Test
+    // var theDAOStartingBlock = 1520861;
+    // var theDAOEndingBlock = 1520861;
+    
+    // Test - by proxy
+    // var theDAOStartingBlock = 1599204;
+    // var theDAOEndingBlock = 1599204;
+    
+    // Test - directly
+    // var theDAOStartingBlock = 1521563;
+    // var theDAOEndingBlock = 1521563;
+    
+    
+    var theDAO = web3.eth.contract(theDAOABIFragment).at(theDAOAddress);
+    var theDAOCreatedTokenEvent = theDAO.CreatedToken({}, {fromBlock: theDAOStartingBlock, toBlock: theDAOEndingBlock});
+    console.log("Header\tFrom\tTokenOwner\tCreatedBy\tBlockNumber\tTxHash\tTimestamp\tGMTDateTime\tAmount\tTheDAOAmount\textraBalanceAmount\tTheDAOTokens\tGasUsed\tGasPrice\tCost\tNonce");
+    theDAOCreatedTokenEvent.watch(function(error, result){
+      var tx = eth.getTransaction(result.transactionHash);
+      var txReceipt = eth.getTransactionReceipt(result.transactionHash);
+      var gasUsed = txReceipt.gasUsed;
+      var gasPrice = tx.gasPrice;
+      var cost = gasUsed * gasPrice;
+      var amount = tx.value;
+      var block = eth.getBlock(tx.blockNumber);
+      var d = new Date(block.timestamp * 1000);
+    
+      var status = debug.traceTransaction(result.transactionHash);
+      var extraBalanceAmount = 0;
+      var tokenOwner = tx.from;
+      var createdBy = "Owner";
+      status.structLogs.forEach(function(e) {
+        if (e.op == "CALL") {
+          var stack = e.stack;
+          // baac5300 = createTokenProxy(address) - https://www.4byte.directory/signatures/?bytes4_signature=0xbaac5300
+          if (stack[0].substring(56) == "baac5300") {
+            tokenOwner = "0x" + stack[2].substring(24);
+            createdBy = "Proxy";
+          }
+          extraBalanceAmount = web3.toBigNumber("0x" + stack[stack.length-3]);
+        }
+      });
+      var theDAOAmount = amount - extraBalanceAmount;
+      var theDAOTokens = theDAOAmount * 100;
+    
+      console.log("Data\t" + tx.from + "\t" + tokenOwner + "\t" + createdBy + "\t" + tx.blockNumber + "\t" + tx.hash + "\t" +
+        block.timestamp + "\t" + d.toGMTString() + "\t" + web3.fromWei(amount, "ether") + "\t" + 
+        web3.fromWei(theDAOAmount, "ether") + "\t" + web3.fromWei(extraBalanceAmount, "ether") + "\t" + 
+        web3.fromWei(theDAOTokens, "ether") + "\t" + gasUsed + "\t" + gasPrice + "\t" +
+        web3.fromWei(cost, "ether") + "\t" + tx.nonce);
+    });
+    
+    EOF
+    
