@@ -42,9 +42,12 @@ Output - XLSX: [CreatedTokenEventsWithNonZeroExtraBalance_v3.xlsx](https://githu
     Data	0xa8c8b89fd99a25b4a085dff3d967b47b10b37034	0xa8c8b89fd99a25b4a085dff3d967b47b10b37034	Owner	1520870	0xcc146aeea6d229dce6edd463c6d80fdd4e88af0a407ca6e9d72da31775eeb043	1463302917	Sun, 15 May 2016 09:01:57 GMT	0.01	0.009523809523809524	0.000476190476190477	0.9523809523809524	50960	20000000000	0.0010192	29	
     ...
     
+For the reconcilation of my results against [Arachnid's results](https://github.com/arachnid/extrabalance/), see [ExtraBalanceReconciliation.md](https://github.com/bokkypoobah/TheDAOData/blob/master/ExtraBalanceReconciliation.md) .
+    
 For further information, see:
 * [Which accounts contributed to The DAO's extraBalance account?](http://ethereum.stackexchange.com/questions/7390/which-accounts-contributed-to-the-daos-extrabalance-account)
 * [How do I get a refund for the amount I paid in excess of 1 ether to 100 The DAO tokens](http://ethereum.stackexchange.com/questions/7265/how-do-i-get-a-refund-for-the-amount-i-paid-in-excess-of-1-ether-to-100-the-dao) for more details.
+* The **ExtraBalance** section in [The DAO’s Edge Cases Multisig (Post Hard Fork)](https://medium.com/edge-cases-multisig-phf-official-channel/the-daos-edge-cases-multisig-post-hard-fork-2f107380bd61#.qdjyu4d9b).
 
 <br />
 <br />
