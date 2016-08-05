@@ -27,21 +27,24 @@ The script `getTheDAOTransferEvents` can be used to retrieve The DAO Transfer ev
 
 ### The DAO CreatedToken Event Between Block 1520861 and 1599205 With Non-Zero Contribution To extraBalance Account
 
-Script: [getTheDAOCreatedTokenEventsWithNonZeroExtraBalance](https://github.com/bokkypoobah/TheDAOData/blob/master/getTheDAOCreatedTokenEventsWithNonZeroExtraBalance)
+Script: [getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v3
+](https://github.com/bokkypoobah/TheDAOData/blob/master/getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v3)
 
-Output - Tab Delimited: [CreatedTokenEventsWithNonZeroExtraBalance_v2.txt](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v2.txt)
+Output - Tab Delimited: [CreatedTokenEventsWithNonZeroExtraBalance_v3.txt](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v3.txt)
 
-Output - XLSX: [CreatedTokenEventsWithNonZeroExtraBalance_v2.xlsx](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v2.xlsx)
+Output - XLSX: [CreatedTokenEventsWithNonZeroExtraBalance_v3.xlsx](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v3.xlsx)
 
-    Header	From	TokenOwner	CreatedBy	BlockNumber	TxHash	Timestamp	GMTDateTime	Amount	TheDAOAmount	extraBalanceAmount	TheDAOTokens	GasUsed	GasPrice	Cost	Nonce
-    Data	0x32be343b94f860124dc4fee278fdcbd38c102d88	0xbad9ab5fd55aff4a8aec47166e1a2894d68cc473	Proxy	1520861	0xb989cba5fad84d78e305909bf97605dc35b3cb6caf0e32a2009c3a2dda876003	1463302816	Sun, 15 May 2016 09:00:16 GMT	134	127.61904761904762	6.380952380952380953	12761.904761904761	83139	30000000000	0.00249417	64340
-    Data	0x44d7bd707d831f1cb9ae9fd6d129d56d3040564b	0x44d7bd707d831f1cb9ae9fd6d129d56d3040564b	Owner	1520866	0xf34ead2d5b1886e1b428082ff621aa2145e0f77b001011d1db99b15d356a26bf	1463302856	Sun, 15 May 2016 09:00:56 GMT	40	38.095238095238095	1.904761904761904762	3809.5238095238096	80960	21000000000	0.00170016	0
-    Data	0x7727b2afc5a6816452a455e65a6a7dd01d03af4b	0x7727b2afc5a6816452a455e65a6a7dd01d03af4b	Owner	1520866	0xafee9c83d41dd151b970f8241e27796db2aceaaace73bf1ecdc2dcc0f53a288f	1463302856	Sun, 15 May 2016 09:00:56 GMT	1	0.9523809523809523	0.04761904761904762	95.23809523809522	50960	20000000000	0.0010192	5
-    Data	0x3c7b53f4fa75cd9499bd593c37d5b9872151058a	0x3c7b53f4fa75cd9499bd593c37d5b9872151058a	Owner	1520870	0xaeca3a70346d726ac77ad598cc5e819acb644317a0bf33c81d2b6c3c8acdcc1a	1463302917	Sun, 15 May 2016 09:01:57 GMT	110	104.76190476190476	5.238095238095238096	10476.190476190475	80960	21000000000	0.00170016	5
-    Data	0xa8c8b89fd99a25b4a085dff3d967b47b10b37034	0xa8c8b89fd99a25b4a085dff3d967b47b10b37034	Owner	1520870	0xcc146aeea6d229dce6edd463c6d80fdd4e88af0a407ca6e9d72da31775eeb043	1463302917	Sun, 15 May 2016 09:01:57 GMT	0.01	0.009523809523809524	0.000476190476190477	0.9523809523809524	50960	20000000000	0.0010192	29
+    Header	From	TokenOwner	CreatedBy	BlockNumber	TxHash	Timestamp	GMTDateTime	Amount	TheDAOAmount	extraBalanceAmount	TheDAOTokens	GasUsed	GasPrice	Cost	Nonce	Error
+    Data	0x32be343b94f860124dc4fee278fdcbd38c102d88	0xbad9ab5fd55aff4a8aec47166e1a2894d68cc473	Proxy	1520861	0xb989cba5fad84d78e305909bf97605dc35b3cb6caf0e32a2009c3a2dda876003	1463302816	Sun, 15 May 2016 09:00:16 GMT	134	127.61904761904762	6.380952380952380953	12761.904761904761	83139	30000000000	0.00249417	64340	
+    Data	0x44d7bd707d831f1cb9ae9fd6d129d56d3040564b	0x44d7bd707d831f1cb9ae9fd6d129d56d3040564b	Owner	1520866	0xf34ead2d5b1886e1b428082ff621aa2145e0f77b001011d1db99b15d356a26bf	1463302856	Sun, 15 May 2016 09:00:56 GMT	40	38.095238095238095	1.904761904761904762	3809.5238095238096	80960	21000000000	0.00170016	0	
+    Data	0x7727b2afc5a6816452a455e65a6a7dd01d03af4b	0x7727b2afc5a6816452a455e65a6a7dd01d03af4b	Owner	1520866	0xafee9c83d41dd151b970f8241e27796db2aceaaace73bf1ecdc2dcc0f53a288f	1463302856	Sun, 15 May 2016 09:00:56 GMT	1	0.9523809523809523	0.04761904761904762	95.23809523809522	50960	20000000000	0.0010192	5	
+    Data	0x3c7b53f4fa75cd9499bd593c37d5b9872151058a	0x3c7b53f4fa75cd9499bd593c37d5b9872151058a	Owner	1520870	0xaeca3a70346d726ac77ad598cc5e819acb644317a0bf33c81d2b6c3c8acdcc1a	1463302917	Sun, 15 May 2016 09:01:57 GMT	110	104.76190476190476	5.238095238095238096	10476.190476190475	80960	21000000000	0.00170016	5	
+    Data	0xa8c8b89fd99a25b4a085dff3d967b47b10b37034	0xa8c8b89fd99a25b4a085dff3d967b47b10b37034	Owner	1520870	0xcc146aeea6d229dce6edd463c6d80fdd4e88af0a407ca6e9d72da31775eeb043	1463302917	Sun, 15 May 2016 09:01:57 GMT	0.01	0.009523809523809524	0.000476190476190477	0.9523809523809524	50960	20000000000	0.0010192	29	
     ...
     
-See [How do I get a refund for the amount I paid in excess of 1 ether to 100 The DAO tokens](http://ethereum.stackexchange.com/questions/7265/how-do-i-get-a-refund-for-the-amount-i-paid-in-excess-of-1-ether-to-100-the-dao) for more details.
+For further information, see:
+* [Which accounts contributed to The DAO's extraBalance account?](http://ethereum.stackexchange.com/questions/7390/which-accounts-contributed-to-the-daos-extrabalance-account)
+* [How do I get a refund for the amount I paid in excess of 1 ether to 100 The DAO tokens](http://ethereum.stackexchange.com/questions/7265/how-do-i-get-a-refund-for-the-amount-i-paid-in-excess-of-1-ether-to-100-the-dao) for more details.
 
 <br />
 <br />
