@@ -10,7 +10,33 @@ I ran the reconciliation script [reconcileCreatedTokenEventsWithNonZeroExtraBala
 
 <br />
 
-# Reconciliation Results - The Differences
+---
+
+# Reconciliation Of Arachnid's Results - Summary Of Differences
+
+For the differences detailed in the next section, here is the summary.
+
+    #          Arachnid     Etherscan   Difference
+    ------ ------------  ------------ ------------
+     1       0.52441835    0.49946081  -0.02495753
+     2       0.72448254    0.49946081  -0.22502173
+     3       0.56221045    0.23076923  -0.33144122
+     4       0.74601404    0.13333333  -0.61268071
+     5       0.00944670    0.00944670   0.00000000
+     6       0.20000000    0.20000000   0.00000000
+     7     124.16187229  124.49331351   0.33144122
+     8       2.94313417    3.55581488   0.61268071
+     9      11.85088003   11.88919432   0.03831430
+    10       0.43567698    0.25000000  -0.18567698
+    11      99.85263732  100.00000000   0.14736268
+    12       5.74702074    5.99700000   0.24997926
+    Total  247.75779361  247.75779361   0.00000000
+
+<br />
+
+---
+
+# Reconciliation Results - Difference Details
 
 All the accounts except the following matches between Arachnid's data and the data generated here. Note that BPB's data include some transaction that were <b>Out Of Gas</b> errors.:
 
@@ -221,9 +247,11 @@ Account <a href="http://etherscan.io/address/0xff4663862a7fefceb4a0990bb1a45a9e7
 </li>
 </ol>
 
-Arachnid sum 344907.387187409
-BPB sum 344917.579923469
-Arachnid sum - BPB sum -10.1927360594273
+<ul>
+  <li>Arachnid sum 344907.387187409</li>
+  <li>BPB sum 344917.579923469 <b>Includes Out Of Gas errors</b></li>
+  <li>Arachnid sum - BPB sum -10.1927360594273</li>
+</ul>
 
 <br />
 
