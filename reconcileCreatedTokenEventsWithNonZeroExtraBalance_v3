@@ -1,0 +1,118 @@
+#!/usr/bin/perl
+# ------------------------------------------------------------------------------
+# Reconcile the ExtraBalance account contributions using the data from
+# * https://github.com/arachnid/extrabalance/extrabalance.json, renamed
+#   to arachnid_extrabalance.txt
+# * https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v3.txt
+#
+# Usage:
+#   1. Download this script to reconcileIt .
+#   2. Download the two files above
+#   2. `chmod 700 reconcileIt`
+#   3. Then run this script `./reconcileIt`
+#
+# Enjoy. (c) BokkyPooBah 2016. The MIT licence.
+# ------------------------------------------------------------------------------
+
+my $arachnidData = getArachnidData();
+my ($bpbExtraBalanceData, $bpbTxHashData, $bpbTxExtraBalanceData, $bpbTxErrorData) = getBPBData();
+
+# Find common accounts
+
+my %commonKeys = ();
+foreach my $key (sort keys %$arachnidData) {
+  if (exists $bpbExtraBalanceData->{$key}) {
+    $commonKeys{$key} = $key;
+    my $aValue = $arachnidData->{$key} / 1e18;
+    my $bpbValue = $bpbExtraBalanceData->{$key};
+    if (abs($aValue-$bpbValue)<0.000000001) {
+      # print "EQUALS " . $key . " = " . $aValue . " vs " . $bpbValue . "\n";
+    } else {
+      print "NOT EQUALS " . $key . " = " . $aValue . " vs " . $bpbValue . "\n";
+      foreach my $txHash (keys %$bpbTxHashData) {
+        my $account = $bpbTxHashData->{$txHash};
+        if ($account eq $key) {
+          my $txExtraBalanceData = $bpbTxExtraBalanceData->{$txHash};
+          my $error = $bpbTxErrorData->{$txHash};
+          print "  " . $txHash . " " . $txExtraBalanceData . " " . $error . "\n";
+        }
+      }
+    }
+  }
+}
+
+foreach my $key (sort keys %$arachnidData) {
+  if (!(exists $commonKeys{$key})) {
+    my $aValue = $arachnidData->{$key} / 1e18;
+    print "IN A NOT IN BPB " . $key . " = " . $aValue . "\n";
+  }
+}
+
+foreach my $key (sort keys %$bpbExtraBalanceData) {
+  if (!(exists $commonKeys{$key})) {
+    my $bpbValue = $bpbExtraBalanceData->{$key};
+    print "IN BPB NOT IN A " . $key . " = " . $bpbValue . "\n";
+  }
+}
+
+my ($aSum, $bpbSum) = (0, 0);
+foreach my $key (keys %$arachnidData) {
+  my $aValue = $arachnidData->{$key} / 1e18;
+  $aSum += $aValue;
+}
+
+foreach my $key (keys %$bpbExtraBalanceData) {
+  my $bpbValue = $bpbExtraBalanceData->{$key};
+  $bpbSum += $bpbValue;
+}
+
+print "Arachnid sum " . $aSum . "\n";
+print "BPB sum " . $bpbSum . "\n";
+print "Arachnid sum - BPB sum " . ($aSum - $bpbSum) . "\n";
+
+
+sub getBPBData {
+  my %extraBalanceData = ();
+  my %txHashData = ();
+  my %txExtraBalanceData = ();
+  my %txErrorData = ();
+  my $FILENAME = "CreatedTokenEventsWithNonZeroExtraBalance_v3.txt";
+  open(FH, "<$FILENAME")
+    or die "Cannot open $FILENAME. Stopped";
+  my ($account, $balance);
+  while (my $line = <FH>) {
+    if (!($line =~ /Token/)) {
+      chomp $line;
+      my @fields = split("\t", $line);
+      my ($account, $txHash, $extraBalance, $error) = ($fields[2], $fields[5], $fields[10], $fields[16]);
+      if (exists $extraBalanceData{$account}) {
+        $extraBalanceData{$account} = $extraBalanceData{$account} + $extraBalance;
+      } else {
+        $extraBalanceData{$account} = $extraBalance;
+      }
+      $txHashData{$txHash} = $account;
+      $txExtraBalanceData{$txHash} = $extraBalance;
+      $txErrorData{$txHash} = $error;
+    }
+  }
+  close(FH);
+  return (\%extraBalanceData, \%txHashData, \%txExtraBalanceData, \%txErrorData);
+}
+
+sub getArachnidData {
+  my %data = ();
+  my $FILENAME = "arachnid_extrabalance.json";
+  open(FH, "<$FILENAME")
+    or die "Cannot open $FILENAME. Stopped";
+  my ($account, $balance);
+  while (my $line = <FH>) {
+    if ($line =~ /0x/) {
+      ($account) = $line =~ /"(.*)"/;
+    } elsif ($line =~ /"/) {
+      ($balance) = $line =~ /"(.*)"/;
+      $data{$account} = $balance;
+    }
+  }
+  close(FH);
+  return \%data;
+}
