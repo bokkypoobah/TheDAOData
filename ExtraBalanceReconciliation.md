@@ -17,7 +17,7 @@ All the accounts except the following matches between Arachnid's data and the da
 <ol>
 
 <li>
-Account <a href="http://etherscan.io/address/0x006f4a5440c26fa045d6d253e14597b72999ee4f">0x006f4a5440c26fa045d6d253e14597b72999ee4f</a> A: 0.524418347209618 vs BPB: 0.649143936666667
+Account <a href="http://etherscan.io/address/0x006f4a5440c26fa045d6d253e14597b72999ee4f">0x006f4a5440c26fa045d6d253e14597b72999ee4f</a> A: 0.524418347209618 vs BPB: 0.649143936666667. <b>Should be 0.499460813333333334 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0xe290b5d4a4a0175a7bc535881eae4806fd04b060e56a966da71d52ef33de45ba">0xe290b5d4a4a0175a7bc535881eae4806fd04b060e56a966da71d52ef33de45ba</a> 0.149683123333333334 <b>Out of gas</b>
@@ -29,7 +29,7 @@ Account <a href="http://etherscan.io/address/0x006f4a5440c26fa045d6d253e14597b72
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x00b8f2209342369795b8388c40553933197c8a56">0x00b8f2209342369795b8388c40553933197c8a56</a> A: 0.724482542341536 vs BPB: 1.84903146333333
+Account <a href="http://etherscan.io/address/0x00b8f2209342369795b8388c40553933197c8a56">0x00b8f2209342369795b8388c40553933197c8a56</a> A: 0.724482542341536 vs BPB: 1.84903146333333. <b>Should be 0.499460813333333334 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x321a5a6626ef34f779fec21439cfbc43ae0d92b9d1a15939003b79aee3a172ac">0x321a5a6626ef34f779fec21439cfbc43ae0d92b9d1a15939003b79aee3a172ac</a> 0.499460813333333334 
@@ -41,7 +41,7 @@ Account <a href="http://etherscan.io/address/0x00b8f2209342369795b8388c405539331
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x00c7d701fa374d9f26b3b09e9a3f6b766a38baff">0x00c7d701fa374d9f26b3b09e9a3f6b766a38baff</a> A: 0.562210447974399 vs BPB: 2.31794871794872
+Account <a href="http://etherscan.io/address/0x00c7d701fa374d9f26b3b09e9a3f6b766a38baff">0x00c7d701fa374d9f26b3b09e9a3f6b766a38baff</a> A: 0.562210447974399 vs BPB: 2.31794871794872. <b>Should be 0.23076923076923077 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x50f3126d52b788c7cf748cae6611347839970f87daf57cfd846fc967acbcba2e">0x50f3126d52b788c7cf748cae6611347839970f87daf57cfd846fc967acbcba2e</a> 0.333333333333333334 <b>Out of gas</b>
@@ -62,7 +62,7 @@ Account <a href="http://etherscan.io/address/0x00c7d701fa374d9f26b3b09e9a3f6b766
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x00d9c9c5631bc25ee08be1c4c7ed8cbbb662d70b">0x00d9c9c5631bc25ee08be1c4c7ed8cbbb662d70b</a> A: 0.746014041113587 vs BPB: 2.13333333333333
+Account <a href="http://etherscan.io/address/0x00d9c9c5631bc25ee08be1c4c7ed8cbbb662d70b">0x00d9c9c5631bc25ee08be1c4c7ed8cbbb662d70b</a> A: 0.746014041113587 vs BPB: 2.13333333333333. <b>Should be 0.133333333333333334 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0xd20a95a9f051d6961ca766a9b2d0f18b6afdf6d8465931a3f70f2c4b1c023688">0xd20a95a9f051d6961ca766a9b2d0f18b6afdf6d8465931a3f70f2c4b1c023688</a> 2 <b>Out of gas</b>
@@ -74,7 +74,7 @@ Account <a href="http://etherscan.io/address/0x00d9c9c5631bc25ee08be1c4c7ed8cbbb
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x00dc1ec1c5cd9bfef408aebe2e46e62a75148bac">0x00dc1ec1c5cd9bfef408aebe2e46e62a75148bac</a> A: 0.00944670476190476 vs BPB: 0.628416170151524
+Account <a href="http://etherscan.io/address/0x00dc1ec1c5cd9bfef408aebe2e46e62a75148bac">0x00dc1ec1c5cd9bfef408aebe2e46e62a75148bac</a> A: 0.00944670476190476 vs BPB: 0.628416170151524. <b>Should be 0.009446704761904762 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0xc7cec8971425302cf34259ad55e1724f56282d34b7789b539b1c31082f8ebf74">0xc7cec8971425302cf34259ad55e1724f56282d34b7789b539b1c31082f8ebf74</a> 0.618969465389619048 <b>Out of gas</b>
@@ -86,7 +86,7 @@ Account <a href="http://etherscan.io/address/0x00dc1ec1c5cd9bfef408aebe2e46e62a7
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x00ff1d79e83997b205e7f0284f6f0502d75d979a">0x00ff1d79e83997b205e7f0284f6f0502d75d979a</a> A: 0.2 vs BPB: 4
+Account <a href="http://etherscan.io/address/0x00ff1d79e83997b205e7f0284f6f0502d75d979a">0x00ff1d79e83997b205e7f0284f6f0502d75d979a</a> A: 0.2 vs BPB: 4. <b>Should be 0.2 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x0948845be17fb2cc4175b0504cb1e6fad3c410e178f78a528ccd0c026299f316">0x0948845be17fb2cc4175b0504cb1e6fad3c410e178f78a528ccd0c026299f316</a> 3.8 <b>Out of gas</b>
@@ -98,7 +98,7 @@ Account <a href="http://etherscan.io/address/0x00ff1d79e83997b205e7f0284f6f0502d
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x0234978fa3c892dbded38c55a15ec9e11fa07059">0x0234978fa3c892dbded38c55a15ec9e11fa07059</a> A: 124.16187229499 vs BPB: 124.493313512195
+Account <a href="http://etherscan.io/address/0x0234978fa3c892dbded38c55a15ec9e11fa07059">0x0234978fa3c892dbded38c55a15ec9e11fa07059</a> A: 124.16187229499 vs BPB: 124.493313512195. <b>Should be 124.493313512195 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0xb9bd2e52a4cbca6e8d9e2a18529fc2e3b56f6dfac809e1bc826cd7f99a20fcc5">0xb9bd2e52a4cbca6e8d9e2a18529fc2e3b56f6dfac809e1bc826cd7f99a20fcc5</a> 58.389865236333333334 
@@ -116,7 +116,7 @@ Account <a href="http://etherscan.io/address/0x0234978fa3c892dbded38c55a15ec9e11
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x88a5c029687bb4fd865a13fb1fc06873c336cd97">0x88a5c029687bb4fd865a13fb1fc06873c336cd97</a> A: 2.94313417470251 vs BPB: 3.55581488248276
+Account <a href="http://etherscan.io/address/0x88a5c029687bb4fd865a13fb1fc06873c336cd97">0x88a5c029687bb4fd865a13fb1fc06873c336cd97</a> A: 2.94313417470251 vs BPB: 3.55581488248276. <b>Should be 3.55581488248276 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x42fceda6fac87aa7c8cce09bbd84a234eda92717a2ca2dc2cfff496e31cf9c2b">0x42fceda6fac87aa7c8cce09bbd84a234eda92717a2ca2dc2cfff496e31cf9c2b</a> 1 
@@ -137,7 +137,7 @@ Account <a href="http://etherscan.io/address/0x88a5c029687bb4fd865a13fb1fc06873c
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x903f6b338a71d6f99f3c7dad541da317c63dbd0d">0x903f6b338a71d6f99f3c7dad541da317c63dbd0d</a> A: 11.8508800265313 vs BPB: 11.8891943233333
+Account <a href="http://etherscan.io/address/0x903f6b338a71d6f99f3c7dad541da317c63dbd0d">0x903f6b338a71d6f99f3c7dad541da317c63dbd0d</a> A: 11.8508800265313 vs BPB: 11.8891943233333. <b>Should be 11.8891943233333 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x353056e0843b9f94090efa9974ae736c81142499aed6912991ddbffb7ed28d50">0x353056e0843b9f94090efa9974ae736c81142499aed6912991ddbffb7ed28d50</a> 4.333333333333333334 
@@ -149,7 +149,7 @@ Account <a href="http://etherscan.io/address/0x903f6b338a71d6f99f3c7dad541da317c
   <a href="http://etherscan.io/tx/0xaa80b29ce002e294081ccaeab27cfb88ced6a323c68b300eb3f2bb86f8f4a68d">0xaa80b29ce002e294081ccaeab27cfb88ced6a323c68b300eb3f2bb86f8f4a68d</a> 0.222527656666666667 
   </li>
   <li>
-  <a href="http://etherscan.io/tx/"></a>0x3f5edf94421742bb08d9262528955b06336bcf557528e377716039a87a0f5120 0.333333333333333334
+  <a href="http://etherscan.io/tx/0x3f5edf94421742bb08d9262528955b06336bcf557528e377716039a87a0f5120">0x3f5edf94421742bb08d9262528955b06336bcf557528e377716039a87a0f5120</a> 0.333333333333333334
   </li>
   <li>
   <a href="http://etherscan.io/tx/0x9a41d36bea806a8cbf38a4f793fc45c956239f6df4c77b2d4fb8ec6986208feb">0x9a41d36bea806a8cbf38a4f793fc45c956239f6df4c77b2d4fb8ec6986208feb</a> 6.666666666666666667 
@@ -158,7 +158,7 @@ Account <a href="http://etherscan.io/address/0x903f6b338a71d6f99f3c7dad541da317c
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0x9898ca78ed5253886fb9cdec33e6547db093f702">0x9898ca78ed5253886fb9cdec33e6547db093f702</a> A: 0.435676976810044 vs BPB: 0.437333333333333
+Account <a href="http://etherscan.io/address/0x9898ca78ed5253886fb9cdec33e6547db093f702">0x9898ca78ed5253886fb9cdec33e6547db093f702</a> A: 0.435676976810044 vs BPB: 0.437333333333333. <b>Should be 0.25 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x64371cee1fa188205c4d8b6093862362e879bf02cb134a2eb5a2234f4d69314c">0x64371cee1fa188205c4d8b6093862362e879bf02cb134a2eb5a2234f4d69314c</a> 0.25 
@@ -170,7 +170,7 @@ Account <a href="http://etherscan.io/address/0x9898ca78ed5253886fb9cdec33e6547db
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0xe2b60cc130ec4416c95a0c38755fd0607140d1a8">0xe2b60cc130ec4416c95a0c38755fd0607140d1a8</a> A: 99.852637319992 vs BPB: 100
+Account <a href="http://etherscan.io/address/0xe2b60cc130ec4416c95a0c38755fd0607140d1a8">0xe2b60cc130ec4416c95a0c38755fd0607140d1a8</a> A: 99.852637319992 vs BPB: 100. <b>Should be 100 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0xe75e7b1696de7399bef763f1a34d5b68f98b7ac7a3cc3cdc6fe0f74a329616ed">0xe75e7b1696de7399bef763f1a34d5b68f98b7ac7a3cc3cdc6fe0f74a329616ed</a> 16.666666666666666667 
@@ -194,7 +194,7 @@ Account <a href="http://etherscan.io/address/0xe2b60cc130ec4416c95a0c38755fd0607
 </li>
 
 <li>
-Account <a href="http://etherscan.io/address/0xff4663862a7fefceb4a0990bb1a45a9e738e55bd">0xff4663862a7fefceb4a0990bb1a45a9e738e55bd</a> A: 5.74702073711551 vs BPB: 5.997
+Account <a href="http://etherscan.io/address/0xff4663862a7fefceb4a0990bb1a45a9e738e55bd">0xff4663862a7fefceb4a0990bb1a45a9e738e55bd</a> A: 5.74702073711551 vs BPB: 5.997. <b>Should be 5.997 from Etherscan</b>
   <ol>
   <li>
   <a href="http://etherscan.io/tx/0x22ef628e7fee9b15e0c019ee3c9b507f70ed95957fc88aaedd634c20b85966c5">0x22ef628e7fee9b15e0c019ee3c9b507f70ed95957fc88aaedd634c20b85966c5</a> 0.033333333333333334 
