@@ -6,7 +6,7 @@ The script [getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v3](https://githu
 
 An alternative method of generating the Extra Balance contribution data can be found at [github.com/arachnid/extrabalance/](https://github.com/arachnid/extrabalance/). I copied the [extrabalance.json](https://github.com/Arachnid/extrabalance/blob/master/extrabalance.json) output from this repository and renamed it to [arachnid_extrabalance.json](https://github.com/bokkypoobah/TheDAOData/blob/master/arachnid_extrabalance.json).
 
-I ran the reconciliation script [reconcileCreatedTokenEventsWithNonZeroExtraBalance_v3](https://github.com/bokkypoobah/TheDAOData/blob/master/reconcileCreatedTokenEventsWithNonZeroExtraBalance_v3) to generate the following results (the raw results can be found below):
+I ran the reconciliation script [reconcileCreatedTokenEventsWithNonZeroExtraBalance_v3](https://github.com/bokkypoobah/TheDAOData/blob/master/reconcileCreatedTokenEventsWithNonZeroExtraBalance_v3) to generate the following results comparing my Extra Balance account contributions against Arachnid's calculations (the raw results can be found below):
 
 <br />
 
