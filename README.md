@@ -30,7 +30,7 @@ The script `getTheDAOTransferEvents` can be used to retrieve The DAO Transfer ev
 Script: [getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v3
 ](https://github.com/bokkypoobah/TheDAOData/blob/master/getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v3)
 
-As queried in the question [Question: how do you find the function hash "b61d27f6"](https://github.com/bokkypoobah/TheDAOData/issues/1), the function signature 0xb61d27f6 in the code represents the wallet contract `execute(address,uint256,bytes)` function.
+* As queried in the question [Question: how do you find the function hash "b61d27f6"](https://github.com/bokkypoobah/TheDAOData/issues/1), the function signature `0xb61d27f6` in the code represents the wallet contract `execute(address,uint256,bytes)` function.
 
 Output - Tab Delimited: [CreatedTokenEventsWithNonZeroExtraBalance_v3.txt](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v3.txt)
 
