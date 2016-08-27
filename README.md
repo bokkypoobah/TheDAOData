@@ -3,6 +3,8 @@ Data related to The DAO
 
 This repository contains some scripts to retrieve data from The DAO on the Ethereum blockchain.
 
+**Note** As @lyricalpolymath as found out when comparing his results with mine, my results are accurate to 9 decimal places. See https://github.com/bokkypoobah/TheDAOData/issues/2 . I won't revise my data as it is accurate enough at the moment.
+
 <br />
 
 ### Get The DAO CreatedToken Event
