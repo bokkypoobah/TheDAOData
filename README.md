@@ -3,7 +3,7 @@ Data related to The DAO
 
 This repository contains some scripts to retrieve data from The DAO on the Ethereum blockchain.
 
-**Note** As @lyricalpolymath as found out when comparing his results with mine, my results are accurate to 9 decimal places. See https://github.com/bokkypoobah/TheDAOData/issues/2 . I won't revise my data as it is accurate enough at the moment.
+**Note** As @lyricalpolymath as found out when comparing his results with mine, my results are accurate to 9 decimal places. See https://github.com/bokkypoobah/TheDAOData/issues/2 . <strike>I won't revise my data as it is accurate enough at the moment.</strike>
 
 **Update 09:44 Aug 31 2016 UTC**
 I've uploaded v4 files with the rounding corrected by using BigNumber maths. The files are:
