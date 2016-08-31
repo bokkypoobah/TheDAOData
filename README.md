@@ -3,7 +3,9 @@ Data related to The DAO
 
 This repository contains some scripts to retrieve data from The DAO on the Ethereum blockchain.
 
-**Note** As @lyricalpolymath as found out when comparing his results with mine, my results are accurate to 9 decimal places. See https://github.com/bokkypoobah/TheDAOData/issues/2 . <strike>I won't revise my data as it is accurate enough at the moment.</strike>
+**Notes**:
+* As @lyricalpolymath as found out when comparing his results with mine, my results are accurate to 9 decimal places. See https://github.com/bokkypoobah/TheDAOData/issues/2 . <strike>I won't revise my data as it is accurate enough at the moment.</strike>
+* As @ledgerwatch has discovered, you will need the non `--fast` synced chain for the `debug.traceTransaction(...)` function to return the intermediate states required by this script. The Ethereum Wallet will by default `--fast` sync a new chain. `geth` will NOT `--fast` sync a new chain, so you will have to run `geth removedb`, then `geth --support-dao-fork console` to sync.
 
 **Update 09:44 Aug 31 2016 UTC**
 I've uploaded v4 files with the rounding corrected by using BigNumber maths. The files are:
