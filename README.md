@@ -5,6 +5,13 @@ This repository contains some scripts to retrieve data from The DAO on the Ether
 
 **Note** As @lyricalpolymath as found out when comparing his results with mine, my results are accurate to 9 decimal places. See https://github.com/bokkypoobah/TheDAOData/issues/2 . I won't revise my data as it is accurate enough at the moment.
 
+**Update 09:44 Aug 31 2016 UTC**
+I've uploaded v4 files with the rounding corrected by using BigNumber maths. The files are:
+
+* [getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v4](https://github.com/bokkypoobah/TheDAOData/blob/master/getTheDAOCreatedTokenEventsWithNonZeroExtraBalance_v4)
+* [CreatedTokenEventsWithNonZeroExtraBalance_v4.txt](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v4.txt)
+* [CreatedTokenEventsWithNonZeroExtraBalance_v4.xlsx](https://github.com/bokkypoobah/TheDAOData/blob/master/CreatedTokenEventsWithNonZeroExtraBalance_v4.xlsx)
+
 <br />
 
 ### Get The DAO CreatedToken Event
