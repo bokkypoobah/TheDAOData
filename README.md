@@ -16,6 +16,11 @@ I've uploaded v4 files with the rounding corrected by using BigNumber maths. The
 
 <br />
 
+**Update 13:12 Sep 4 2016 UTC**
+Deployment of ExtraBalToken contract to facilitate the refunds of the extraBalance account. Details in [ReconcileExtraBalTokenContractReconciliation.md](https://github.com/bokkypoobah/TheDAOData/blob/master/ReconcileExtraBalTokenContractReconciliation.md).
+
+<br />
+
 ### Get The DAO CreatedToken Event
 The script `getTheDAOCreatedTokenEvents` can be used to retrieve The DAO CreatedToken events. The complete data extracted by this script can be found in `CreatedTokenEvents.txt`. Here's some sample data:
 
