@@ -1,0 +1,145 @@
+#!/bin/sh
+
+# ------------------------------------------------------------------------------
+# Retrieve The DAO CreatedToken events with non-zero extraBalance amounts. 
+# These events are from block 1520861 to 1599205 when the creation phase ended.
+# Compare this to ExtraBalToken.balanceOf(address) deployed to 
+# 0x5c40eF6f527f4FbA68368774E6130cE6515123f2 in block 2197120 in transaction
+# http://etherscan.io/tx/0x6f5ea6f387722f2899789947a37703f211983b74215b0b15f5bb4b3835b63bc6 
+#
+# The ExtraBalToken contract will be filled and sealed. The checking of the 
+# CreatedToken balance will have to be done in the block when the ExtraBalToken
+# contract is sealed.
+#
+# Replace the value for extraBalTokenContractSealedBlock with the block number where the
+# contract is sealed
+#
+# Usage:
+#   1. Download this script to reconcileExtraBalTokenValues .
+#   2. `chmod 700 reconcileExtraBalTokenValues`
+#   3. Run `geth console` in a window.
+#   4. Then run this script `./reconcileExtraBalTokenValues`
+#      in a separate window.
+#
+# Enjoy. (c) BokkyPooBah 2016. The MIT licence.
+# ------------------------------------------------------------------------------
+
+geth attach << EOF | egrep "Header|Data|Summary"
+var theDAOABIFragment = [{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CreatedToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"}];
+var theDAOAddress = "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
+var extraBalTokenContractABI = [{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"type":"function"},{"constant":false,"inputs":[],"name":"seal","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"data","type":"uint256[]"}],"name":"fill","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":true,"inputs":[],"name":"sealed","outputs":[{"name":"","type":"bool"}],"type":"function"},{"inputs":[],"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}];
+var extraBalTokenContractAddress = "0x5c40eF6f527f4FbA68368774E6130cE6515123f2";
+
+// Update below with sealed block number
+var extraBalTokenContractSealedBlock = 2197120;
+
+// Full non-zero extraBalance contributions
+var theDAOStartingBlock = 1520861;
+var theDAOEndingBlock = 1599205;
+
+// Test
+// var theDAOStartingBlock = 1520861;
+// var theDAOEndingBlock = 1520861;
+
+// Test - by proxy
+// var theDAOStartingBlock = 1599204;
+// var theDAOEndingBlock = 1599204;
+
+// Test - directly
+// var theDAOStartingBlock = 1521563;
+// var theDAOEndingBlock = 1521563;
+
+// Test - wallet contract
+// var theDAOStartingBlock = 1547894;
+// var theDAOEndingBlock = 1547895;
+
+// Test - Out of gas
+// var theDAOStartingBlock = 1594238;
+// var theDAOEndingBlock = 1594240;
+
+
+var theDAO = web3.eth.contract(theDAOABIFragment).at(theDAOAddress);
+var theDAOCreatedTokenEvent = theDAO.CreatedToken({}, {fromBlock: theDAOStartingBlock, toBlock: theDAOEndingBlock});
+var extraBalTokenContract = web3.eth.contract(extraBalTokenContractABI).at(extraBalTokenContractAddress);
+console.log("Header\tFrom\tTokenOwner\tCreatedBy\tBlockNumber\tTxHash\tTimestamp\tGMTDateTime\tAmount\tTheDAOAmount\textraBalanceAmount\textraBalTokenAmount\textraBalTokenDiff\tTheDAOTokens\tGasUsed\tGasPrice\tCost\tNonce\tError");
+
+var records = 0;
+var amountTotal = new BigNumber(0);
+var theDAOAmountTotal = new BigNumber(0);
+var extraBalanceAmountTotal = new BigNumber(0);
+var extraBalTokenContractAmountTotal = new BigNumber(0);
+var extraBalTokenContractDiffTotal = new BigNumber(0);
+var theDAOTokensTotal = new BigNumber(0);
+
+theDAOCreatedTokenEvent.watch(function(error, result){
+  var tx = eth.getTransaction(result.transactionHash);
+  var txReceipt = eth.getTransactionReceipt(result.transactionHash);
+  var gasUsed = txReceipt.gasUsed;
+  var gasPrice = tx.gasPrice;
+  var cost = gasUsed * gasPrice;
+  var amount = tx.value;
+  // console.log("Data amount: " + amount);
+  var block = eth.getBlock(tx.blockNumber);
+  var d = new Date(block.timestamp * 1000);
+
+  var status = debug.traceTransaction(result.transactionHash);
+  var extraBalanceAmount = 0;
+  var tokenOwner = tx.from;
+  var createdBy = "Owner";
+  var error = "";
+  status.structLogs.forEach(function(e) {
+    if (e.op == "CALL") {
+      var stack = e.stack;
+      extraBalanceAmount = web3.toBigNumber("0x" + stack[stack.length-3]);
+      // baac5300 = createTokenProxy(address) - https://www.4byte.directory/signatures/?bytes4_signature=0xbaac5300
+      if (stack[0].substring(56) == "baac5300") {
+        tokenOwner = "0x" + stack[2].substring(24);
+        createdBy = "Proxy";
+      } else if (stack[0].substring(56) == "b61d27f6") {
+        amount = web3.toBigNumber("0x" + stack[stack.length-3]);
+      } else if (stack[0].substring(56) == "00000966") {
+        if (("0x" + stack[3].substring(24)) != tokenOwner) {
+          tokenOwner = "0x" + stack[3].substring(24);
+          createdBy = "Wallet Contract";
+        }
+      }
+    }
+    if (e.error.length > 0) {
+      error = e.error;
+    }
+  });
+  var theDAOAmount = amount.minus(extraBalanceAmount);
+  var theDAOTokens = theDAOAmount.times(100);
+
+  records++;
+  amountTotal = amountTotal.plus(amount);
+  theDAOAmountTotal = theDAOAmountTotal.plus(theDAOAmount);
+  extraBalanceAmountTotal = extraBalanceAmountTotal.plus(extraBalanceAmount);
+  theDAOTokensTotal = theDAOTokensTotal.plus(theDAOTokens);
+
+  var extraBalTokenContractAmount = extraBalTokenContract.balanceOf(tokenOwner, extraBalTokenContractSealedBlock);
+  var extraBalTokenContractDiff = extraBalanceAmount.minus(extraBalTokenContractAmount);
+  extraBalTokenContractAmountTotal = extraBalTokenContractAmountTotal.plus(extraBalTokenContractAmount);
+  extraBalTokenContractDiffTotal = extraBalTokenContractDiffTotal.plus(extraBalTokenContractDiff);
+
+  console.log("Data\t" + tx.from + "\t" + tokenOwner + "\t" + createdBy + "\t" + tx.blockNumber + "\t" + tx.hash + "\t" +
+    block.timestamp + "\t" + d.toGMTString() + "\t" + web3.fromWei(amount, "ether") + "\t" + 
+    web3.fromWei(theDAOAmount, "ether") + "\t" + web3.fromWei(extraBalanceAmount, "ether") + "\t" +
+    web3.fromWei(extraBalTokenContractAmount, "ether") + "\t" + web3.fromWei(extraBalTokenContractDiff, "ether") + "\t" + 
+    web3.fromWei(theDAOTokens, "ether") + "\t" + gasUsed + "\t" + gasPrice + "\t" +
+    web3.fromWei(cost, "ether") + "\t" + tx.nonce + "\t" + error);
+});
+
+var extraBalTokenContractTotalSupply = extraBalTokenContract.totalSupply();
+
+console.log("Summary\trecords\t" + records);
+console.log("Summary\tamountTotal\t" + web3.fromWei(amountTotal, "ether"));
+console.log("Summary\ttheDAOAmountTotal\t" + web3.fromWei(theDAOAmountTotal, "ether"));
+console.log("Summary\textraBalanceAmountTotal\t" + web3.fromWei(extraBalanceAmountTotal, "ether"));
+console.log("Summary\textraBalTokenContractAmountTotal\t" + web3.fromWei(extraBalTokenContractAmountTotal, "ether"));
+console.log("Summary\textraBalTokenContractDiffTotal\t" + web3.fromWei(extraBalTokenContractDiffTotal, "ether"));
+console.log("Summary\textraBalTokenContractTotalSupply\t" + web3.fromWei(extraBalTokenContractTotalSupply, "ether"));
+console.log("Summary\ttheDAOTokensTotal\t" + web3.fromWei(theDAOTokensTotal, "ether"));
+
+EOF
+
