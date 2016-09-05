@@ -36,3 +36,8 @@ The **ExtraBalToken** provides a perfect count of tokens by each account compare
 **UPDATE 10:22 Sep 5 2016 UTC** 
 
 @ledgerwatch has now deployed the [withdrawal contract](https://etherscan.io/address/0x6f576af2dba6bf6308caf8feec3fc3d07501c018#code).
+
+<br />
+
+See also:
+* [How do I get a refund for the amount I paid in excess of 1 ether to 100 The DAO tokens](http://ethereum.stackexchange.com/questions/7265/how-do-i-get-a-refund-for-the-amount-i-paid-in-excess-of-1-ether-to-100-the-dao)
