@@ -27,6 +27,12 @@ The **ExtraBalToken** provides a perfect count of tokens by each account compare
 
 <br />
 
-**UPDATE 09:39 Sep 2016 2016 UTC**
+**UPDATE 09:39 Sep 5 2016 UTC**
 
 @ledgerwatch has now [sealed](https://etherscan.io/address/0x5c40eF6f527f4FbA68368774E6130cE6515123f2#readContract) the contract in block [#2,202,674](https://etherscan.io/block/2202674).
+
+<br />
+
+**UPDATE 10:22 Sep 5 2016 UTC** 
+
+@ledgerwatch has now deployed the [withdrawal contract](https://etherscan.io/address/0x6f576af2dba6bf6308caf8feec3fc3d07501c018#code).
