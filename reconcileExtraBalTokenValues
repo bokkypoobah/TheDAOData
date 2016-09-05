@@ -24,14 +24,14 @@
 # Enjoy. (c) BokkyPooBah 2016. The MIT licence.
 # ------------------------------------------------------------------------------
 
-geth attach << EOF | egrep "Header|Data|Summary"
+geth attach << EOF | egrep "Header|Data|Balance|Summary"
 var theDAOABIFragment = [{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CreatedToken","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"},{"indexed":false,"name":"_amount","type":"uint256"}],"name":"Transfer","type":"event"}];
 var theDAOAddress = "0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413";
 var extraBalTokenContractABI = [{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"type":"function"},{"constant":false,"inputs":[],"name":"seal","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"data","type":"uint256[]"}],"name":"fill","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":true,"inputs":[],"name":"sealed","outputs":[{"name":"","type":"bool"}],"type":"function"},{"inputs":[],"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}];
 var extraBalTokenContractAddress = "0x5c40eF6f527f4FbA68368774E6130cE6515123f2";
 
 // Update below with sealed block number
-var extraBalTokenContractSealedBlock = 2197120;
+var extraBalTokenContractSealedBlock = 2200128;
 
 // Full non-zero extraBalance contributions
 var theDAOStartingBlock = 1520861;
@@ -57,19 +57,23 @@ var theDAOEndingBlock = 1599205;
 // var theDAOStartingBlock = 1594238;
 // var theDAOEndingBlock = 1594240;
 
+//                       0x5c40eF6f527f4FbA68368774E6130cE6515123f2
+// 00000000a32088d00a5d45db9e05f4f8d6ecabbbb2691b1110baaa32516ee798
+// http://etherscan.io/address/0x9e05f4f8d6ecabbbb2691b1110baaa32516ee798
+// var theDAOStartingBlock = 1530582;
+// var theDAOEndingBlock = 1531328;
 
 var theDAO = web3.eth.contract(theDAOABIFragment).at(theDAOAddress);
 var theDAOCreatedTokenEvent = theDAO.CreatedToken({}, {fromBlock: theDAOStartingBlock, toBlock: theDAOEndingBlock});
 var extraBalTokenContract = web3.eth.contract(extraBalTokenContractABI).at(extraBalTokenContractAddress);
-console.log("Header\tFrom\tTokenOwner\tCreatedBy\tBlockNumber\tTxHash\tTimestamp\tGMTDateTime\tAmount\tTheDAOAmount\textraBalanceAmount\textraBalTokenAmount\textraBalTokenDiff\tTheDAOTokens\tGasUsed\tGasPrice\tCost\tNonce\tError");
+console.log("Header\tFrom\tTokenOwner\tCreatedBy\tBlockNumber\tTxHash\tTimestamp\tGMTDateTime\tAmount\tTheDAOAmount\textraBalanceAmount\tTheDAOTokens\tGasUsed\tGasPrice\tCost\tNonce\tError");
 
 var records = 0;
 var amountTotal = new BigNumber(0);
 var theDAOAmountTotal = new BigNumber(0);
 var extraBalanceAmountTotal = new BigNumber(0);
-var extraBalTokenContractAmountTotal = new BigNumber(0);
-var extraBalTokenContractDiffTotal = new BigNumber(0);
 var theDAOTokensTotal = new BigNumber(0);
+var extraBalanceByAccounts = {};
 
 theDAOCreatedTokenEvent.watch(function(error, result){
   var tx = eth.getTransaction(result.transactionHash);
@@ -108,6 +112,8 @@ theDAOCreatedTokenEvent.watch(function(error, result){
       error = e.error;
     }
   });
+  // TESTING
+  // if (tokenOwner == "0x9e05f4f8d6ecabbbb2691b1110baaa32516ee798") {
   var theDAOAmount = amount.minus(extraBalanceAmount);
   var theDAOTokens = theDAOAmount.times(100);
 
@@ -117,18 +123,37 @@ theDAOCreatedTokenEvent.watch(function(error, result){
   extraBalanceAmountTotal = extraBalanceAmountTotal.plus(extraBalanceAmount);
   theDAOTokensTotal = theDAOTokensTotal.plus(theDAOTokens);
 
-  var extraBalTokenContractAmount = extraBalTokenContract.balanceOf(tokenOwner, extraBalTokenContractSealedBlock);
-  var extraBalTokenContractDiff = extraBalanceAmount.minus(extraBalTokenContractAmount);
-  extraBalTokenContractAmountTotal = extraBalTokenContractAmountTotal.plus(extraBalTokenContractAmount);
-  extraBalTokenContractDiffTotal = extraBalTokenContractDiffTotal.plus(extraBalTokenContractDiff);
+  if (tokenOwner in extraBalanceByAccounts) {
+    var amt = extraBalanceByAccounts[tokenOwner];
+    amt = amt.plus(extraBalanceAmount.toString());
+    extraBalanceByAccounts[tokenOwner] = amt;
+  } else {
+    extraBalanceByAccounts[tokenOwner] = new BigNumber(extraBalanceAmount.toString());
+  }
 
   console.log("Data\t" + tx.from + "\t" + tokenOwner + "\t" + createdBy + "\t" + tx.blockNumber + "\t" + tx.hash + "\t" +
     block.timestamp + "\t" + d.toGMTString() + "\t" + web3.fromWei(amount, "ether") + "\t" + 
     web3.fromWei(theDAOAmount, "ether") + "\t" + web3.fromWei(extraBalanceAmount, "ether") + "\t" +
-    web3.fromWei(extraBalTokenContractAmount, "ether") + "\t" + web3.fromWei(extraBalTokenContractDiff, "ether") + "\t" + 
     web3.fromWei(theDAOTokens, "ether") + "\t" + gasUsed + "\t" + gasPrice + "\t" +
     web3.fromWei(cost, "ether") + "\t" + tx.nonce + "\t" + error);
+  // TESTING
+  // } 
 });
+
+var extraBalTokenContractAmountTotal = new BigNumber(0);
+var extraBalTokenContractDiffTotal = new BigNumber(0);
+
+console.log("Header\tTokenOwner\textraBalanceAmount\textraBalTokenAmount\textraBalTokenDiff");
+for (var account in extraBalanceByAccounts) {
+  var extraBalanceAmount = extraBalanceByAccounts[account];
+  var extraBalTokenContractAmount = extraBalTokenContract.balanceOf(account, extraBalTokenContractSealedBlock);
+  var extraBalTokenContractDiff = extraBalanceAmount.minus(extraBalTokenContractAmount);
+  extraBalTokenContractAmountTotal = extraBalTokenContractAmountTotal.plus(extraBalTokenContractAmount);
+  extraBalTokenContractDiffTotal = extraBalTokenContractDiffTotal.plus(extraBalTokenContractDiff);
+
+  console.log("Balance\t" + account + "\t" + web3.fromWei(extraBalanceAmount, "ether") + "\t" +
+    web3.fromWei(extraBalTokenContractAmount, "ether") + "\t" + web3.fromWei(extraBalTokenContractDiff, "ether"));  
+}
 
 var extraBalTokenContractTotalSupply = extraBalTokenContract.totalSupply();
 
